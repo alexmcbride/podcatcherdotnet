@@ -1,0 +1,118 @@
+﻿<Window x:Class="PodcatcherDotNet.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:p="clr-namespace:PodcatcherDotNet.Properties"
+        Width="1280" Height="720"
+        WindowStartupLocation="CenterScreen" 
+        Icon="/PodcatcherDotNet;component/Resources/Icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <tb:TaskbarIcon x:Name="NotifyIcon" 
+                        IconSource="/PodcatcherDotNet;component/Resources/Icon.ico"
+                        ToolTipText="{Binding DisplayName}">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="_Exit" cal:Message.Attach="TryClose()"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+            <tb:TaskbarIcon.Style>
+                <Style TargetType="{x:Type tb:TaskbarIcon}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=DisplayNotifyIcon, Source={x:Static p:Settings.Default}}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=DisplayNotifyIcon, Source={x:Static p:Settings.Default}}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </tb:TaskbarIcon.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TrayMouseDoubleClick">
+                    <cal:ActionMessage MethodName="TrayMouseDoubleClick"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="TrayBalloonTipClicked">
+                    <cal:ActionMessage MethodName="TrayBalloonTipClicked"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </tb:TaskbarIcon>
+
+        <Image Grid.Column="0" Source="/PodcatcherDotNet;component/Resources/Icon.png" Height="32" Width="32" Margin="8,0,0,0"/>
+        <TextBlock Grid.Column="1" FontSize="30" Margin="4,8,8,8" x:Name="DisplayName"/>
+
+        <TextBlock x:Name="StatusMessage" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,8,0" TextWrapping="Wrap" TextAlignment="Right"/>
+
+        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,8,8,8">
+            <Button x:Name="ShowFeedList" Margin="0,0,8,0" Padding="8,4,8,4" ToolTip="Feeds" IsEnabled="{Binding IsFeedsEnabled}">
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Rss32.png" Width="32" Height="32"/>
+                    <TextBlock VerticalAlignment="Center" Text=" ("/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding TotalUnread}"/>
+                    <TextBlock VerticalAlignment="Center" Text=")"/>
+                </StackPanel>
+            </Button>
+            
+            <Button x:Name="ShowDownloadSection" Margin="0,0,8,0" Padding="8,4,8,4" ToolTip="Downloads" IsEnabled="{Binding IsDownloadsEnabled}">
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Download32.png" Width="32" Height="32"/>
+                    <TextBlock VerticalAlignment="Center" Text=" ("/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding DownloadSection.ActiveDownloadsCount}"/>
+                    <TextBlock VerticalAlignment="Center" Text=")"/>
+                </StackPanel>
+            </Button>
+            
+            <Image Source="/PodcatcherDotNet;component/Resources/Seperator.png" Margin="0,0,8,0" />
+
+            <xctk:SplitButton ToolTip="Options" IsOpen="{Binding IsOptionsDropDownOpen, Mode=TwoWay}" IsEnabled="{Binding IsOptionsEnabled}" Padding="8,4,8,4" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="ShowOptions"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <xctk:SplitButton.Content>
+                    <Image Source="/PodcatcherDotNet;component/Resources/Cog32.png"/>
+                </xctk:SplitButton.Content>
+                <xctk:SplitButton.DropDownContent>
+                    <Menu HorizontalContentAlignment="Stretch">
+                        <Menu.Resources>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Padding" Value="20,2,20,2"/>
+                            </Style>
+                        </Menu.Resources>
+                        <Menu.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </Menu.ItemsPanel>
+                        <MenuItem Header="_Mark All As Read" cal:Message.Attach="MarkAllAsRead()"/>
+                        <MenuItem Header="_Remove Old Items" cal:Message.Attach="ShowRemoveItems()"/>
+                        <Separator/>
+                        <MenuItem Header="Edit _Categories" cal:Message.Attach="ShowEditCategories()"/>
+                        <Separator/>
+                        <MenuItem Header="_Export OPML" cal:Message.Attach="ExportOpml()"/>
+                        <MenuItem Header="_Import OPML" cal:Message.Attach="ImportOpml()"/>
+                        <Separator/>
+                        <MenuItem Header="_Save Backup" cal:Message.Attach="SaveBackup()"/>
+                        <MenuItem Header="_Load Backup" cal:Message.Attach="LoadBackup()"/>
+                    </Menu>
+                </xctk:SplitButton.DropDownContent>
+            </xctk:SplitButton>
+        </StackPanel>
+
+        <ContentControl Grid.Row="1" Grid.ColumnSpan="4" x:Name="ActiveItem"/>
+    </Grid>
+</Window>

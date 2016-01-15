@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50572F8B-E604-44E4-B599-51411AFD7E73}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PodcatcherDotNet</RootNamespace>
+    <AssemblyName>PodcatcherDotNet</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PodcatcherDotNet.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Argotic.Common, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Argotic.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Core, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Argotic.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Argotic.Extensions, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Argotic.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.Core.2.0.0\lib\net45\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform">
+      <HintPath>..\packages\Caliburn.Micro.2.0.0\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer, Version=1.28.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Humanizer.1.28.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf">
+      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="taglib-sharp">
+      <HintPath>..\packages\taglib.2.1.0.0\lib\taglib-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Helpers\HtmlHelper.cs" />
+    <Compile Include="Helpers\FfmpegHelper.cs" />
+    <Compile Include="Helpers\FfmpegProgressEventArgs.cs" />
+    <Compile Include="Helpers\FfmpegState.cs" />
+    <Compile Include="Messages\ActivateShellViewMessage.cs" />
+    <Compile Include="Messages\ActivateScreenMessage.cs" />
+    <Compile Include="Messages\BrowserNavigateMessage.cs" />
+    <Compile Include="Messages\BrowserActionMessage.cs" />
+    <Compile Include="Messages\BrowserUrlChangedMessage.cs" />
+    <Compile Include="Messages\DownloadCancelledMessage.cs" />
+    <Compile Include="Messages\DownloadEditedMessage.cs" />
+    <Compile Include="Messages\DownloadFinishedMessage.cs" />
+    <Compile Include="Messages\EditCategoryMessage.cs" />
+    <Compile Include="Messages\EditCategoryUpdatedMessage.cs" />
+    <Compile Include="Messages\IsReadChangedMessage.cs" />
+    <Compile Include="Messages\NotifyBalloonMessage.cs" />
+    <Compile Include="Messages\ClearDownloadMessage.cs" />
+    <Compile Include="Messages\StatusMessage.cs" />
+    <Compile Include="Messages\UpdateTaskbarProgressMessage.cs" />
+    <Compile Include="Messages\DownloadPodcastMessage.cs" />
+    <Compile Include="Messages\BeginFeedEditMessage.cs" />
+    <Compile Include="Messages\CommitFeedEditMessage.cs" />
+    <Compile Include="Messages\ItemEditedMessage.cs" />
+    <Compile Include="Messages\ItemEditingMessage.cs" />
+    <Compile Include="Messages\RemoveOldItemsMessage.cs" />
+    <Compile Include="Models\Id3Tag.cs" />
+    <Compile Include="Helpers\TextHelper.cs" />
+    <Compile Include="Models\AtomFeedFactory.cs" />
+    <Compile Include="Models\Download.cs" />
+    <Compile Include="Models\FeedFactory.cs" />
+    <Compile Include="Models\FeedSerializer.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\FeedImporter.cs" />
+    <Compile Include="Models\RssFeedFactory.cs" />
+    <Compile Include="Helpers\DialogHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\TimerHelper.cs" />
+    <Compile Include="Helpers\WindowsHelper.cs" />
+    <Compile Include="Helpers\DownloadHelper.cs" />
+    <Compile Include="Helpers\WebClientWithTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ViewModels\AddFeedViewModel.cs" />
+    <Compile Include="Models\Feed.cs" />
+    <Compile Include="ViewModels\BrowserViewModel.cs" />
+    <Compile Include="ViewModels\DownloadFolderViewModel.cs" />
+    <Compile Include="ViewModels\DownloadListViewModel.cs" />
+    <Compile Include="ViewModels\EditCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\EditCategoryViewModel.cs" />
+    <Compile Include="ViewModels\FileViewModel.cs" />
+    <Compile Include="ViewModels\DownloadState.cs" />
+    <Compile Include="ViewModels\EditDownloadViewModel.cs" />
+    <Compile Include="ViewModels\FeedListViewModel.cs" />
+    <Compile Include="ViewModels\FeedViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\OptionsViewModel.cs" />
+    <Compile Include="ViewModels\DownloadSectionViewModel.cs" />
+    <Compile Include="ViewModels\DownloadViewModel.cs" />
+    <Compile Include="Helpers\PodcastType.cs" />
+    <Compile Include="ViewModels\RemoveDateViewModel.cs" />
+    <Compile Include="ViewModels\RemoveItemsViewModel.cs" />
+    <Compile Include="ViewModels\RemoveFeedViewModel.cs" />
+    <Compile Include="ViewModels\EditFeedViewModel.cs" />
+    <Compile Include="ViewModels\RemoveItemViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Messages\InitializeTimerMessage.cs" />
+    <Compile Include="Views\AddFeedView.xaml.cs">
+      <DependentUpon>AddFeedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowserView.xaml.cs">
+      <DependentUpon>BrowserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DownloadFolderView.xaml.cs">
+      <DependentUpon>DownloadFolderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DownloadListView.xaml.cs">
+      <DependentUpon>DownloadListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DownloadSectionView.xaml.cs">
+      <DependentUpon>DownloadSectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditCategoriesView.xaml.cs">
+      <DependentUpon>EditCategoriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDownloadView.xaml.cs">
+      <DependentUpon>EditDownloadView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditFeedView.xaml.cs">
+      <DependentUpon>EditFeedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedListView.xaml.cs">
+      <DependentUpon>FeedListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RemoveItemView.xaml.cs">
+      <DependentUpon>RemoveItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\AddFeedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DownloadFolderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DownloadListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DownloadSectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditCategoriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditDownloadView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditFeedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RemoveItemsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RemoveFeedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RemoveItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cog32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DownArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Play20.png" />
+    <Resource Include="Resources\Remove20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Folder20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Edit20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Rss24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Refresh20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Refresh16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Remove16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Browser16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Podcast16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Download32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Back16.png" />
+    <Resource Include="Resources\Forward16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Download16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cancel16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cancel20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Edit16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Folder16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Play16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Refresh24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Add16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Flag16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Back32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Music16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Rss32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Seperator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Envelope16.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

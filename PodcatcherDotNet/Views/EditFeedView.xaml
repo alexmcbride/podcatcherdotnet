@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="PodcatcherDotNet.Views.EditFeedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8">Enter new information for the feed</TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,8,8">Title:</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,8" x:Name="Title" IsVisibleChanged="Title_IsVisibleChanged"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,8,8">URL:</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" x:Name="Url"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,8,8">Category:</TextBlock>
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,8" x:Name="Categories" Text="{Binding Category, Mode=TwoWay}" IsEditable="True" VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,8,8">Description:</TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" x:Name="Description" SpellCheck.IsEnabled="True"/>
+
+        <CheckBox Grid.Row="5" Grid.ColumnSpan="2" Margin="0,0,0,8" x:Name="IsPreserved">Do not remove old items from this feed</CheckBox>
+
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="Save" Width="100" Padding="2" Margin="0,0,8,0" IsDefault="True">_Save</Button>
+            <Button x:Name="TryClose" Width="100" Padding="2" IsCancel="True">_Close</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

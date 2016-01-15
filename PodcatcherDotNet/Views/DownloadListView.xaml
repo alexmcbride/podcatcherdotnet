@@ -1,0 +1,302 @@
+﻿<UserControl x:Class="PodcatcherDotNet.Views.DownloadListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:PodcatcherDotNet.ViewModels"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ProgressBar}">
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+
+        <Style TargetType="{x:Type Border}" x:Key="DownloadBorderStyle">
+            <Setter Property="Background" Value="#EEEEEE"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="8,8,8,0"/>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="DownloadButtonStyle">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#EEEEEE"/>
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="DownloadImageStyle">
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+        </Style>
+
+        <DataTemplate x:Key="ItemDownloading">
+            <Border Style="{StaticResource DownloadBorderStyle}">
+                <Grid cal:Bind.Model="{Binding}" Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" x:Name="PercentComplete"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Downloading ("/>
+                        <TextBlock Text="{Binding TotalReceived, StringFormat=F1}"/>
+                        <TextBlock Text=" / "/>
+                        <TextBlock Text="{Binding TotalSize, StringFormat=F1}"/>
+                        <TextBlock Text=" MB at "/>
+                        <TextBlock Text="{Binding DownloadSpeed, StringFormat=F1}"/>
+                        <TextBlock Text=" Mbps due "/>
+                        <TextBlock x:Name="DownloadTime"/>
+                        <TextBlock Text=")"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="FeedTitle"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="Title"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="Cancel" Style="{StaticResource DownloadButtonStyle}">
+                            <Image Source="/PodcatcherDotNet;component/Resources/Cancel20.png" ToolTip="Cancel" Style="{StaticResource DownloadImageStyle}"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ItemUpdatingId3">
+            <Border Style="{StaticResource DownloadBorderStyle}">
+                <Grid cal:Bind.Model="{Binding}" Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" IsIndeterminate="False" Value="100"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Updating ID3 Tags - "/>
+                        <TextBlock x:Name="FeedTitle"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="Title"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ItemConvertingM4aToMp3">
+            <Border Style="{StaticResource DownloadBorderStyle}">
+                <Grid cal:Bind.Model="{Binding}" Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" x:Name="PercentComplete"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Converting to MP3 - "/>
+                        <TextBlock x:Name="FeedTitle"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="Title"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ItemFinished">
+            <Border Style="{StaticResource DownloadBorderStyle}">
+                <Grid cal:Bind.Model="{Binding}" Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Finished "/>
+                        <TextBlock x:Name="DownloadedDatePretty"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="FeedTitle"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="Title"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="Play" Margin="0,0,6,0" Style="{StaticResource DownloadButtonStyle}" ToolTip="Play in Media Player">
+                            <Image Source="/PodcatcherDotNet;component/Resources/Play20.png" Style="{StaticResource DownloadImageStyle}"/>
+                        </Button>
+                        <Button x:Name="OpenFolder" Margin="0,0,6,0" Style="{StaticResource DownloadButtonStyle}" ToolTip="Open File in Explorer">
+                            <Image Source="/PodcatcherDotNet;component/Resources/Folder20.png" Style="{StaticResource DownloadImageStyle}"/>
+                        </Button>
+                        <Button x:Name="Clear" Style="{StaticResource DownloadButtonStyle}" ToolTip="Clear From List">
+                            <Image Source="/PodcatcherDotNet;component/Resources/Remove20.png" Style="{StaticResource DownloadImageStyle}"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ItemCancelled">
+            <Border Style="{StaticResource DownloadBorderStyle}">
+                <Grid cal:Bind.Model="{Binding}" Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" x:Name="PercentComplete"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Cancelled - "/>
+                        <TextBlock x:Name="FeedTitle"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="Title"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="Clear" Style="{StaticResource DownloadButtonStyle}" ToolTip="Clear">
+                            <Image Source="/PodcatcherDotNet;component/Resources/Remove20.png" Style="{StaticResource DownloadImageStyle}"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ItemError">
+            <Border Style="{StaticResource DownloadBorderStyle}">
+                <Grid cal:Bind.Model="{Binding}" Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" x:Name="PercentComplete"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Error - "/>
+                        <TextBlock x:Name="Title"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock x:Name="FeedTitle"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="Clear" Style="{StaticResource DownloadButtonStyle}" ToolTip="Clear">
+                            <Image Source="/PodcatcherDotNet;component/Resources/Remove20.png" Style="{StaticResource DownloadImageStyle}"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type ContentPresenter}" x:Key="DownloadsItemStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding State}" Value="{x:Static vm:DownloadState.Downloading}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ItemDownloading}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding State}" Value="{x:Static vm:DownloadState.UpdatingId3}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ItemUpdatingId3}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding State}" Value="{x:Static vm:DownloadState.ConvertingM4aToMp3}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ItemConvertingM4aToMp3}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding State}" Value="{x:Static vm:DownloadState.Finished}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ItemFinished}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding State}" Value="{x:Static vm:DownloadState.Cancelled}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ItemCancelled}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding State}" Value="{x:Static vm:DownloadState.Error}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ItemError}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="8" cal:Bind.Model="{Binding}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderThickness="1" BorderBrush="#ABADB3" Margin="0,0,0,8" Grid.Row="0" Grid.ColumnSpan="2">
+            <ItemsControl ItemsSource="{Binding DownloadsView}" 
+                          ItemContainerStyle="{StaticResource DownloadsItemStyle}"
+                          Margin="0,0,0,8"
+                          VirtualizingStackPanel.IsVirtualizing="true" 
+                          VirtualizingStackPanel.VirtualizationMode="Recycling"
+                          ScrollViewer.CanContentScroll="True">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                        <ScrollViewer Focusable="False" 
+                                      HorizontalScrollBarVisibility="Disabled" 
+                                      VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+            </ItemsControl>
+        </Border>
+
+        <xctk:WatermarkTextBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0" Watermark="Search Downloads" x:Name="SearchText">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <cal:ActionMessage MethodName="SearchTextChanged"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </xctk:WatermarkTextBox>
+        
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="0,0,8,0" Padding="8,2,8,2" x:Name="OpenDownloadFolder">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Folder16.png" Width="16" Height="16" Margin="0,0,4,0"/>
+                    <TextBlock Text="Open Download Folder"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="0,0,8,0" Padding="8,2,8,2"  x:Name="CancelAll">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Cancel16.png" Width="16" Height="16" Margin="0,0,4,0"/>
+                    <TextBlock Text="Cancel All"/>
+                </StackPanel>
+            </Button>
+            <Button Padding="8,2,8,2"  x:Name="ClearAll">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Remove16.png" Width="16" Height="16" Margin="0,0,4,0"/>
+                    <TextBlock Text="Clear All"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="PodcatcherDotNet.Views.EditDownloadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="22" Margin="0,0,0,8">Edit Download</TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,8,0">Filename:</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="FileName" Margin="0,0,0,8" IsReadOnly="True" Background="#EFEFEF"/>
+        
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,8,0">Title:</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="Title" Margin="0,0,0,8" IsVisibleChanged="Title_IsVisibleChanged"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,8,0">Artist:</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="Artist" Margin="0,0,0,8"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,8,0">Album:</TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="Album" Margin="0,0,0,8"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,0,8,0">Comment:</TextBlock>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="Comment" Margin="0,0,0,8" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True"/>
+
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Width="100" Padding="0,2,0,2" Margin="0,0,8,0" x:Name="Save" IsDefault="True">_Save</Button>
+            <Button Width="100" Padding="0,2,0,2" x:Name="TryClose" IsCancel="True">_Close</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

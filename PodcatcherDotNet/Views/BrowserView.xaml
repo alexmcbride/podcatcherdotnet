@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="PodcatcherDotNet.Views.BrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <Grid Margin="0,8,0,8">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <WebBrowser Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8" Name="_webBrowser" Navigated="CustomBrowser_Navigated"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="8,0,0,0">
+            <Button x:Name="RefreshPage" Margin="0,0,8,0" ToolTip="Refresh">
+                <Image Source="/PodcatcherDotNet;component/Resources/Refresh16.png" Width="16" Height="16"/>
+            </Button>
+            <Button x:Name="Back" Margin="0,0,8,0" ToolTip="Back">
+                <Image Source="/PodcatcherDotNet;component/Resources/Back16.png" Width="16" Height="16"/>
+            </Button>
+            <Button x:Name="Forward" Margin="0,0,8,0" ToolTip="Forward">
+                <Image Source="/PodcatcherDotNet;component/Resources/Forward16.png" Width="16" Height="16"/>
+            </Button>
+            <TextBlock Text="URL: " VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Url}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
+            <Button IsCancel="True" x:Name="TryClose" Padding="0,2,0,2" Width="100">_Close</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

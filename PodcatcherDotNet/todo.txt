@@ -1,0 +1,61 @@
+﻿FEATURES
+--------
+
+double-click item title to launch in browser
+show latest items list on right when updating? (create fake feed set title to Latest Items and add items to it)
+drag opml file onto window to add it
+drag url onto window to add feed
+progress bar for feed updating?
+refactor feed save/load, only list of feeds loaded at startup, individual feed items loaded from file on demand
+
+TODO
+----
+
+Backup feeds/downloads (zip up into zip file)
+
+BUG: if you have selected the download folder tab and then start a new download, when the downloadsection view is activated the download folder tab is shown instead of the download list.
+
+make feedlist and downloads more like lists, have feeds, downloads and options, maybe line between downloads and options.
+
+if m4a and ffmpeg in action then set progress to 50% download 50% mp3 conversion.
+
+handle FFmpeg cancel for download conversion
+
+BUG: if some data has downloaded, the download will never time out. should reset timer when data is recieved.
+
+move downloads and feeds into their own downloadservice and feedservice, so that they can be queried from other unrelated parts of the application.
+
+replace messagebox with viewmodels
+
+add downloaded items to removeolditemsview
+
+drag feed between categories?
+
+split button menu item stretches seperators incorrectly
+
+stack overflow questions don't get encodings removed?????
+
+add code that scrolls selected feed into view. make add event to feed activated event ????? added but working correct???
+        // http://stackoverflow.com/questions/7366961/listbox-scrollintoview-when-using-collectionviewsource-with-groupdescriptions-i 
+
+WINDOWS MEDIA DEVICE been superceeded by Windows Portable Device
+http://msdn.microsoft.com/en-us/library/windows/desktop/dd388998(v=vs.85).aspx
+http://channel9.msdn.com/coding4fun/blog/Using-the-Windows-Portable-Devices-WDP-API-for-fun-and-fun
+http://portabledevicelib.codeplex.com/
+http://msdn.microsoft.com/en-us/library/windows/hardware/gg463541.aspx
+
+think about other RSS/Atom stuff like tags/authors
+
+easier just to add Preserve Podcast Feeds option?
+add button to right of close button in browserview for open in external browser
+
+add default feeds/podcasts on first startup
+
+create theme that styles all UI elements the same independent of OS.
+
+WpfToolkit does not have strong name key??????
+
+refactor error messages to make them prettier and improve unhandledexception experience.
+
+add named pipe to send activate message to other instance when only single instance allowed.
+

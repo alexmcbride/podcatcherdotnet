@@ -1,0 +1,15 @@
+﻿<Application x:Class="PodcatcherDotNet.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:PodcatcherDotNet"
+             xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <l:AppBootstrapper x:Key="bootstrapper"/>                    
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,221 @@
+﻿<UserControl x:Class="PodcatcherDotNet.Views.FeedListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type FrameworkElement}" x:Key="HasUnreadVisibilityStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasUnread}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding HasUnread}" Value="False">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="ItemHasUnreadStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasUnread}" Value="True">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding HasUnread}" Value="False">
+                    <Setter Property="FontWeight" Value="Normal"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="ItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemHasUnreadStyle}"/>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource HasUnreadVisibilityStyle}">
+                    <TextBlock Text=" (" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Unread}" VerticalAlignment="Center"/>
+                    <TextBlock Text=")" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SelectedTemplate">
+            <Grid cal:Bind.Model="{Binding}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,2">
+                    <TextBlock x:Name="Title" FontSize="20" Style="{StaticResource ItemHasUnreadStyle}"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource HasUnreadVisibilityStyle}">
+                        <TextBlock Text=" (" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="Unread" VerticalAlignment="Center"/>
+                        <TextBlock Text=")" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Menu Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Image Source="/PodcatcherDotNet;component/Resources/DownArrow16.png" Width="16" Height="16"/>
+                        </MenuItem.Header>
+                        <MenuItem Header="Mark as Read" cal:Message.Attach="MarkAllAsRead()">
+                            <MenuItem.Icon>
+                                <Image Source="/PodcatcherDotNet;component/Resources/Flag16.png" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Mark as Unread" cal:Message.Attach="MarkAllAsUnread()"/>
+                        <Separator/>
+                        <MenuItem Header="Remove" cal:Message.Attach="Remove()">
+                            <MenuItem.Icon>
+                                <Image Source="/PodcatcherDotNet;component/Resources/Remove16.png" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Edit Feed" cal:Message.Attach="EditFeed()">
+                            <MenuItem.Icon>
+                                <Image Source="/PodcatcherDotNet;component/Resources/Edit16.png" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Update" cal:Message.Attach="Update()">
+                            <MenuItem.Icon>
+                                <Image Source="/PodcatcherDotNet;component/Resources/Refresh16.png" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Visit Site" cal:Message.Attach="VisitSite()">
+                            <MenuItem.Icon>
+                                <Image Source="/PodcatcherDotNet;component/Resources/Browser16.png" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Visit Site (External)" cal:Message.Attach="VisitSiteExternal()"/>
+                    </MenuItem>
+                </Menu>
+
+                <TextBlock x:Name="Description" Grid.Row="1" TextWrapping="Wrap" Grid.ColumnSpan="2" Margin="0,0,0,4">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasDescription}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding HasDescription}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                    <TextBlock Text="Updated " FontSize="11"/>
+                    <TextBlock Text="{Binding UpdatedPretty}" FontSize="11"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UpdatingTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemHasUnreadStyle}"/>
+                <TextBlock Text=" (updating)"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type ListBoxItem}" x:Key="ContainerStyle">
+            <Setter Property="ContentTemplate" Value="{StaticResource ItemTemplate}" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="ContentTemplate" Value="{StaticResource SelectedTemplate}" />
+                </Trigger>
+                <DataTrigger Binding="{Binding IsUpdating}" Value="True">
+                    <Setter Property="ContentTemplate" Value="{StaticResource UpdatingTemplate}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" MinWidth="40"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <GridSplitter Grid.Column="0" Grid.RowSpan="4" ResizeDirection="Columns" Width="8" Background="White"/>
+
+        <Grid Grid.Row="0" Margin="8,0,8,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <xctk:WatermarkTextBox x:Name="FilterTerm" Margin="0,0,8,0" Watermark="Search Feeds">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <cal:ActionMessage MethodName="FilterTermChanged"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </xctk:WatermarkTextBox>
+
+            <Menu Grid.Column="1" VerticalAlignment="Center">
+                <MenuItem Header="_Filter">
+                    <MenuItem Header="_All" x:Name="FilterAll" IsChecked="{Binding IsFilterAll}"/>
+                    <Separator/>
+                    <MenuItem Header="_Unread" x:Name="FilterUnread" IsChecked="{Binding IsFilterUnread}"/>
+                    <MenuItem Header="_Podcasts" x:Name="FilterPodcasts" IsChecked="{Binding IsFilterPodcasts}"/>
+                    <Separator/>
+                    <MenuItem Header="_Today" x:Name="FilterToday" IsChecked="{Binding IsFilterToday}"/>
+                    <MenuItem Header="_Yesterday" x:Name="FilterYesterday" IsChecked="{Binding IsFilterYesterday}"/>
+                    <MenuItem Header="This _Week" x:Name="FilterThisWeek" IsChecked="{Binding IsFilterThisWeek}"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <ListBox ItemsSource="{Binding FeedsView, IsAsync=True}" SelectedItem="{Binding ActiveItem, Mode=TwoWay}" Margin="8,0,8,8" Name="Feeds"
+               Grid.Row="1" Grid.Column="0" ItemContainerStyle="{StaticResource ContainerStyle}" 
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid cal:Bind.Model="{Binding}">
+                                <TextBlock x:Name="Name" FontSize="14" FontWeight="Bold" Margin="2,0,0,2" Grid.Column="0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="8,0,8,8">
+            <Button x:Name="AddFeed" Margin="0,0,8,0" Padding="4,2,4,2">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Rss24.png" Margin="0,0,2,0" Width="24" Height="24"/>
+                    <TextBlock VerticalAlignment="Center">Add Feed</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="UpdateFeeds" Padding="4,2,4,2" Margin="0,0,8,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PodcatcherDotNet;component/Resources/Refresh24.png" Margin="0,0,2,0" Width="24" Height="24"/>
+                    <TextBlock VerticalAlignment="Center">Update</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <ContentControl x:Name="ActiveItem" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,8,8"/>
+    </Grid>
+</UserControl>
+
